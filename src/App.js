@@ -8,10 +8,19 @@ import Note from './Note';
 export default function App(){
 
     let notesList = [];
-    for(let i = 0; i < localStorage.length; i++){
-        notesList.push(JSON.parse(localStorage.getItem(i)));
-    };
+    // for(let i = 1; i < (localStorage.length); i++){
+    //     notesList.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+    // };
+    for(let i = 0; i < localStorage.length-1; i++){
+        let JSONparseText = JSON.parse(localStorage.getItem(localStorage.key(i)));
+        notesList.push(JSONparseText);
+    }
 
+    console.log(notesList);
+
+    if (localStorage.hasOwnProperty("0") === false){
+        localStorage.setItem("0", "1");
+    }
     const [notes, updateNotes] = useState(notesList);
 
     const newNote = () => {
@@ -27,12 +36,14 @@ export default function App(){
         console.log(actualDate);
         */
         let noteTemplate = {
-            "key": localStorage.length,
+            "key": parseInt(localStorage.getItem("0")),
             "title": "Give me a title!",
             "text": "I WANT TEXT",
             "due": ""
         }
+        let keyCounter = parseInt(localStorage.getItem("0"));
         localStorage.setItem(localStorage.length, JSON.stringify(noteTemplate));
+        localStorage.setItem("0", (keyCounter+1).toString());
         updateNotes([...notes, noteTemplate]);
 
         /*
