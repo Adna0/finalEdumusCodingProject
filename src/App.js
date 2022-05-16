@@ -18,8 +18,6 @@ export default function App() {
 			.substr(2, 10);
 	};
 
-	console.log(notesList);
-
 	const [notes, updateNotes] = useState(notesList);
 
 	const newNote = () => {
